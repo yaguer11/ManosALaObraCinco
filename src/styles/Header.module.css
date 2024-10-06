@@ -1,0 +1,58 @@
+header {
+  font-family: "Roboto Mono", monospace;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgb(93, 118, 169);
+  background: linear-gradient(
+    90deg,
+    rgba(93, 118, 169, 1) 0%,
+    rgba(65, 105, 225, 1) 26%,
+    rgba(166, 166, 178, 1) 92%
+  );
+  color: rgb(0, 0, 0);
+  padding: 1rem;
+}
+
+.menuBtn {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 100%;
+  background: rgb(65, 105, 225);
+  background: linear-gradient(
+    90deg,
+    rgba(65, 105, 225, 1) 51%,
+    rgba(166, 166, 178, 1) 100%
+  );
+  color: white;
+  transition: left 0.3s ease;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 1rem;
+}
+
+.sidebar li a {
+  color: white;
+  text-decoration: none;
+}
