@@ -1,0 +1,49 @@
+.homeContainer {
+  font-family: "Roboto Mono", monospace;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title,
+.description,
+.imagenHome {
+  width: 70%; /* Asegura que todos los elementos tengan el mismo ancho */
+}
+
+.title {
+  font-size: 2rem;
+  color: rgba(65, 105, 225, 1);
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: rgb(222, 229, 249);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.description {
+  text-align: justify;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #333;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.fondoDegradado {
+  width: 70%;
+  height: 0.5rem; /* Mismo alto que el título */
+  background: linear-gradient(
+    90deg,
+    rgba(220, 220, 227, 1) 0%,
+    rgba(65, 105, 225, 1) 100%
+  );
+  border-radius: 8px;
+}

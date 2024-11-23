@@ -1,0 +1,39 @@
+.settingsContainer {
+  font-family: "Roboto Mono", monospace;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  color: rgba(65, 105, 225, 1);
+  margin-bottom: 1.5rem;
+}
+
+.userInfo {
+  font-size: 1.2rem;
+  color: #333;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.logoutButton {
+  font-family: "Roboto Mono", monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  background-color: rgba(65, 105, 225, 1);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: rgb(122, 152, 244); /* Rojo más oscuro */
+}

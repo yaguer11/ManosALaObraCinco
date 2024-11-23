@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/Header.module.css";
+import { MdArrowBack } from "react-icons/md";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 /* eslint-disable react/prop-types */
 function Header({ title, showBack }) {
@@ -28,28 +30,35 @@ function Header({ title, showBack }) {
 
   return (
     <header className={styles.header}>
-      {showBack && (
-        <button onClick={() => navigate(-1)} className={styles.backBtn}>
-          ‹
+      <div className={styles.buttonContainer}>
+        <button onClick={toggleMenu} className={styles.menuBtn}>
+          ☰
         </button>
-      )}
-      <button onClick={toggleMenu} className={styles.menuBtn}>
-        ☰
-      </button>
+        {showBack && (
+          <button onClick={() => navigate(-1)} className={styles.backBtn}>
+            <MdArrowBack />
+          </button>
+        )}
+      </div>
       <h1>{title}</h1>
       <nav className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
-        <ul>
+        <div className={styles.logoContainer}>
+          <FaRegCheckCircle className={styles.logo} />
+        </div>
+        <ul className={styles.topLinks}>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Inicio</Link>
           </li>
           <li>
-            <Link to="/my-projects">My Projects</Link>
+            <Link to="/my-projects">Mis Proyectos</Link>
           </li>
           <li>
-            <Link to="/my-stories">My Stories</Link>
+            <Link to="/my-stories">Mis Historias</Link>
           </li>
+        </ul>
+        <ul className={styles.bottomLinks}>
           <li>
-            <Link to="/settings">Settings</Link>
+            <Link to="/settings">Ajustes</Link>
           </li>
         </ul>
       </nav>
