@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/Login.module.css";
+import { loginUser } from "../../services/api";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -11,24 +12,10 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     setError("");
-
-    fetch("https://lamansysfaketaskmanagerapi.onrender.com/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Credenciales inválidas. Inténtelo nuevamente.");
-        }
-        return response.json();
-      })
+    loginUser(username, password)
       .then((data) => {
         localStorage.setItem("token", data.token); // Guarda el token
         localStorage.setItem("user", JSON.stringify(data.user)); // Guarda información del usuario
-        console.log(data.user);
         navigate("/my-projects"); // Redirige después de iniciar sesión
       })
       .catch((err) => {

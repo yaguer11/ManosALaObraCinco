@@ -6,6 +6,12 @@ import styles from "../../styles/StoryDetails.module.css";
 import { IoMdAdd } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import {
+  fetchStory,
+  fetchTasksByStory,
+  createOrUpdateTask,
+  deleteTask,
+} from "../../services/api";
 
 function StoryDetails() {
   const { storyId } = useParams();
@@ -17,27 +23,11 @@ function StoryDetails() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    // Fetch story details
-    fetch(
-      `https://lamansysfaketaskmanagerapi.onrender.com/api/stories/${storyId}`,
-      {
-        headers: { Auth: `${token}` },
-      }
-    )
-      .then((response) => response.json())
+    fetchStory(storyId)
       .then((data) => setStory(data.data))
       .catch((error) => console.error("Error fetching story:", error));
 
-    // Fetch tasks
-    fetch(
-      `https://lamansysfaketaskmanagerapi.onrender.com/api/stories/${storyId}/tasks`,
-      {
-        headers: { Auth: `${token}` },
-      }
-    )
-      .then((response) => response.json())
+    fetchTasksByStory(storyId)
       .then((data) => setTasks(data.data))
       .catch((error) => console.error("Error fetching tasks:", error));
   }, [storyId]);
@@ -54,21 +44,7 @@ function StoryDetails() {
 
   const handleSubmitTask = (taskData) => {
     setIsLoading(true);
-    const token = localStorage.getItem("token");
-    const url = currentTask
-      ? `https://lamansysfaketaskmanagerapi.onrender.com/api/tasks/${currentTask._id}`
-      : "https://lamansysfaketaskmanagerapi.onrender.com/api/tasks";
-    const method = currentTask ? "PUT" : "POST";
-
-    fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        Auth: `${token}`,
-      },
-      body: JSON.stringify({ ...taskData, story: storyId }),
-    })
-      .then((response) => response.json())
+    createOrUpdateTask(taskData, currentTask?._id, storyId)
       .then((data) => {
         setTasks((prev) => {
           if (currentTask) {
@@ -91,17 +67,8 @@ function StoryDetails() {
 
   const confirmDeleteTask = () => {
     setIsLoading(true);
-    const token = localStorage.getItem("token");
-
-    fetch(
-      `https://lamansysfaketaskmanagerapi.onrender.com/api/tasks/${currentTask._id}`,
-      {
-        method: "DELETE",
-        headers: { Auth: `${token}` },
-      }
-    )
-      .then((response) => {
-        if (!response.ok) throw new Error("Error eliminando tarea");
+    deleteTask(currentTask._id)
+      .then(() => {
         setTasks((prev) => prev.filter((task) => task._id !== currentTask._id));
         setIsDeleteDialogOpen(false);
       })

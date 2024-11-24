@@ -1,18 +1,14 @@
 import styles from "../../styles/MyStories.module.css";
 import { useEffect, useState } from "react";
+import { fetchStories } from "../../services/api";
 
 function MyStories() {
   const [stories, setStories] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    fetch(`https://lamansysfaketaskmanagerapi.onrender.com/api/stories`, {
-      headers: { Auth: `${token}` },
-    })
-      .then((response) => response.json())
+    fetchStories()
       .then((data) => setStories(data.data))
-      .catch((error) => console.error("Error fetching story:", error));
+      .catch((error) => console.error("Error fetching stories:", error));
   }, []);
 
   if (!stories) return <div>Cargando...</div>;

@@ -1,29 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../styles/MyProjects.module.css";
+import { fetchProjects } from "../../services/api";
 
 function MyProjects() {
   const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    fetch("https://lamansysfaketaskmanagerapi.onrender.com/api/projects", {
-      headers: { Auth: `${token}` },
-    })
-      .then((response) => response.json())
+    fetchProjects()
       .then((data) => {
         setProjects(data.data);
-        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching projects:", error);
-        setLoading(false);
       });
   }, []);
 
-  if (loading) return <div>Cargando...</div>;
+  if (!projects) return <div>Cargando...</div>;
 
   return (
     <div className={styles.projectList}>
