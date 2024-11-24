@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import styles from "../../styles/EpicDetails.module.css";
+import { fetchEpicDetails, fetchStoriesByEpic } from "../../services/api";
 
 function EpicDetails() {
   const { projectId, epicId } = useParams();
@@ -8,25 +9,11 @@ function EpicDetails() {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    fetch(
-      `https://lamansysfaketaskmanagerapi.onrender.com/api/epics/${epicId}`,
-      {
-        headers: { Auth: `${token}` },
-      }
-    )
-      .then((response) => response.json())
+    fetchEpicDetails(epicId)
       .then((data) => setEpic(data.data))
       .catch((error) => console.error("Error fetching epic:", error));
 
-    fetch(
-      `https://lamansysfaketaskmanagerapi.onrender.com/api/epics/${epicId}/stories`,
-      {
-        headers: { Auth: `${token}` },
-      }
-    )
-      .then((response) => response.json())
+    fetchStoriesByEpic(epicId)
       .then((data) => setStories(data.data))
       .catch((error) => console.error("Error fetching stories:", error));
   }, [epicId]);

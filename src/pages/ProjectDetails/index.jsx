@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import styles from "../../styles/ProjectDetails.module.css";
+import { fetchProjectDetails } from "../../services/api";
+import { fetchEpics } from "../../services/api";
 
 function ProjectDetails() {
   const { projectId } = useParams();
@@ -8,25 +10,10 @@ function ProjectDetails() {
   const [epics, setEpics] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    fetch(
-      `https://lamansysfaketaskmanagerapi.onrender.com/api/projects/${projectId}`,
-      {
-        headers: { Auth: `${token}` },
-      }
-    )
-      .then((response) => response.json())
+    fetchProjectDetails(projectId)
       .then((data) => setProject(data.data))
       .catch((error) => console.error("Error fetching project:", error));
-
-    fetch(
-      `https://lamansysfaketaskmanagerapi.onrender.com/api/projects/${projectId}/epics`,
-      {
-        headers: { Auth: `${token}` },
-      }
-    )
-      .then((response) => response.json())
+    fetchEpics(projectId)
       .then((data) => setEpics(data.data))
       .catch((error) => console.error("Error fetching epics:", error));
   }, [projectId]);
