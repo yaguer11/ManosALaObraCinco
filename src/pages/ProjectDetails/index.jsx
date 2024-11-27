@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import styles from "../../styles/ProjectDetails.module.css";
+import styles from "../ProjectDetails/ProjectDetails.module.scss";
 import { fetchProjectDetails } from "../../services/api";
 import { fetchEpics } from "../../services/api";
+import Loader from "../../components/Loader";
 
 function ProjectDetails() {
   const { projectId } = useParams();
@@ -11,14 +12,23 @@ function ProjectDetails() {
 
   useEffect(() => {
     fetchProjectDetails(projectId)
-      .then((data) => setProject(data.data))
+      .then((data) => {
+        setProject(data);
+      })
       .catch((error) => console.error("Error fetching project:", error));
     fetchEpics(projectId)
-      .then((data) => setEpics(data.data))
+      .then((data) => {
+        setEpics(data.data);
+      })
       .catch((error) => console.error("Error fetching epics:", error));
   }, [projectId]);
 
-  if (!project) return <div>Cargando...</div>;
+  if (!project)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   return (
     <div className={styles.container}>

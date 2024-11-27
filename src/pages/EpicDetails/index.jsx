@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import styles from "../../styles/EpicDetails.module.css";
+import styles from "../EpicDetails/EpicDetails.module.scss";
 import { fetchEpicDetails, fetchStoriesByEpic } from "../../services/api";
+import Loader from "../../components/Loader";
 
 function EpicDetails() {
   const { projectId, epicId } = useParams();
@@ -10,7 +11,9 @@ function EpicDetails() {
 
   useEffect(() => {
     fetchEpicDetails(epicId)
-      .then((data) => setEpic(data.data))
+      .then((data) => {
+        setEpic(data);
+      })
       .catch((error) => console.error("Error fetching epic:", error));
 
     fetchStoriesByEpic(epicId)
@@ -18,7 +21,12 @@ function EpicDetails() {
       .catch((error) => console.error("Error fetching stories:", error));
   }, [epicId]);
 
-  if (!epic) return <div>Cargando...</div>;
+  if (!epic)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   return (
     <div className={styles.container}>

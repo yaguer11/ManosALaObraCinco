@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "../../styles/Header.module.css";
+import styles from "../Header/Header.module.scss";
 import { MdArrowBack } from "react-icons/md";
 import { FaRegCheckCircle } from "react-icons/fa";
 
@@ -43,7 +43,9 @@ function Header({ title, showBack }) {
       <h1>{title}</h1>
       <nav className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <div className={styles.logoContainer}>
-          <FaRegCheckCircle className={styles.logo} />
+          <FaRegCheckCircle
+            className={`${styles.logo} ${styles.animatedLogo}`}
+          />
         </div>
         <ul className={styles.topLinks}>
           <li>

@@ -1,0 +1,122 @@
+$primary-color: rgba(65, 105, 225, 1); // Color primario
+$secondary-color: rgb(220, 220, 227); // Color secundario (fondo del header)
+$white: white; // Blanco para textos
+$font-family: "Roboto Mono", monospace; // Fuente principal
+
+/* Estilo general del header */
+header {
+  font-family: $font-family;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $secondary-color;
+  color: $primary-color;
+  padding: 1rem;
+}
+
+/* Botones (Menú y Volver) */
+.buttonContainer {
+  display: flex; // Alinea los botones horizontalmente
+  align-items: center; // Alinea los íconos verticalmente
+  gap: 1rem; // Espacio entre los botones
+}
+
+.backBtn,
+.menuBtn {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: $primary-color;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo del sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 100%;
+  background: $primary-color;
+  color: $white;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centra horizontalmente los enlaces
+
+  &.open {
+    left: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  li {
+    padding: 1rem;
+
+    a {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}
+
+/* Logo */
+.logoContainer {
+  text-align: center;
+  margin: 1rem 0;
+
+  .logo {
+    font-size: 3rem;
+    color: rgb(255, 255, 255);
+  }
+
+  .animatedLogo {
+    animation: spin 20s linear infinite, glow 1s ease-in-out infinite;
+  }
+}
+
+/* Enlaces superiores */
+.topLinks {
+  margin-top: 1rem;
+}
+
+/* Enlaces inferiores */
+.bottomLinks {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(120, 121, 122, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(65, 105, 225, 1));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(65, 105, 225, 0.5));
+  }
+}

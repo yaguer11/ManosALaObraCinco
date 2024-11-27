@@ -1,5 +1,12 @@
+@import "../../styles/variables.scss";
+
+$font-family: "Roboto Mono", monospace;
+$primary-color: rgba(65, 105, 225, 1);
+$title-bg: rgb(222, 229, 249);
+$card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+
 .homeContainer {
-  font-family: "Roboto Mono", monospace;
+  font-family: $font-family;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,21 +14,16 @@
   text-align: center;
 }
 
-.title,
-.description,
-.imagenHome {
-  width: 70%; /* Asegura que todos los elementos tengan el mismo ancho */
-}
-
 .title {
   font-size: 2rem;
-  color: rgba(65, 105, 225, 1);
+  color: $primary-color;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: rgb(222, 229, 249);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $title-bg;
+  box-shadow: $card-shadow;
   text-decoration: none;
+  width: 70%;
 }
 
 .description {
@@ -33,17 +35,22 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
+  box-shadow: $card-shadow;
+  width: 70%;
 }
 
 .fondoDegradado {
   width: 70%;
-  height: 0.5rem; /* Mismo alto que el título */
+  height: 0.5rem;
   background: linear-gradient(
     90deg,
     rgba(220, 220, 227, 1) 0%,
-    rgba(65, 105, 225, 1) 100%
+    $primary-color 100%
   );
   border-radius: 8px;
+}
+
+.imagenHome {
+  width: 70%;
+  box-shadow: $card-shadow;
 }

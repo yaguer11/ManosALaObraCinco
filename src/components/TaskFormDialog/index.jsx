@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/TaskFormDialog.module.css";
+import styles from "../TaskFormDialog/TaskFormDialog.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { FaSave } from "react-icons/fa";
 

@@ -1,17 +1,25 @@
-import styles from "../../styles/MyStories.module.css";
+import styles from "../MyStories/MyStories.module.scss";
 import { useEffect, useState } from "react";
 import { fetchStories } from "../../services/api";
+import Loader from "../../components/Loader";
 
 function MyStories() {
   const [stories, setStories] = useState(null);
 
   useEffect(() => {
     fetchStories()
-      .then((data) => setStories(data.data))
+      .then((data) => {
+        setStories(data.data);
+      })
       .catch((error) => console.error("Error fetching stories:", error));
   }, []);
 
-  if (!stories) return <div>Cargando...</div>;
+  if (!stories)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   return (
     <div className={styles.storiesContainer}>
@@ -24,7 +32,10 @@ function MyStories() {
               <strong>Nombre:</strong> {story.name}
             </p>
             <p>
-              <strong>Épica:</strong> {story.epic}
+              <strong>Descripción:</strong> {story.description}
+            </p>
+            <p>
+              <strong>Épica:</strong> {story.epic.name}
             </p>
           </li>
         ))}

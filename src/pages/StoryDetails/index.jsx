@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import TaskFormDialog from "../../components/TaskFormDialog";
 import Task from "../../components/Task";
-import styles from "../../styles/StoryDetails.module.css";
+import styles from "../StoryDetails/StoryDetails.module.scss";
 import { IoMdAdd } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
@@ -12,6 +12,7 @@ import {
   createOrUpdateTask,
   deleteTask,
 } from "../../services/api";
+import Loader from "../../components/Loader";
 
 function StoryDetails() {
   const { storyId } = useParams();
@@ -24,11 +25,12 @@ function StoryDetails() {
 
   useEffect(() => {
     fetchStory(storyId)
-      .then((data) => setStory(data.data))
+      .then((data) => setStory(data))
       .catch((error) => console.error("Error fetching story:", error));
-
     fetchTasksByStory(storyId)
-      .then((data) => setTasks(data.data))
+      .then((data) => {
+        setTasks(data.data);
+      })
       .catch((error) => console.error("Error fetching tasks:", error));
   }, [storyId]);
 
@@ -49,10 +51,10 @@ function StoryDetails() {
         setTasks((prev) => {
           if (currentTask) {
             return prev.map((task) =>
-              task._id === currentTask._id ? { ...task, ...data.data } : task
+              task._id === currentTask._id ? { ...task, ...data.task } : task
             );
           }
-          return [...prev, data.data];
+          return [...prev, data.task];
         });
         setIsDialogOpen(false);
       })
@@ -76,7 +78,12 @@ function StoryDetails() {
       .finally(() => setIsLoading(false));
   };
 
-  if (!story) return <div>Cargando...</div>;
+  if (!story)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   return (
     <div className={styles.container}>

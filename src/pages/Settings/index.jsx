@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/Settings.module.css";
+import styles from "../Settings/Settings.module.scss";
+import Loader from "../../components/Loader";
 
 function Settings() {
   const [user, setUser] = useState(null);
@@ -18,7 +19,11 @@ function Settings() {
   };
 
   if (!user) {
-    return <p>Cargando información del usuario...</p>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   return (

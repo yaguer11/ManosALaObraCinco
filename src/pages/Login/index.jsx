@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/Login.module.css";
+import styles from "../Login/Login.module.scss";
 import { loginUser } from "../../services/api";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -51,6 +52,9 @@ function Login() {
         <button type="submit" className={styles.button}>
           Entrar
         </button>
+        <p className={styles.registerLink}>
+          ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
+        </p>
       </form>
     </div>
   );

@@ -1,38 +1,172 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import styles from "../../styles/MyProjects.module.css";
-import { fetchProjects } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import styles from "../MyProjects/MyProjects.module.scss";
+import {
+  fetchProjects,
+  createProject,
+  deleteProject,
+  updateProject,
+} from "../../services/api";
+import Card from "../../components/Card";
+import Loader from "../../components/Loader";
+import Modal from "../../components/Modal";
+import DeleteDialog from "../../components/DeleteDialog";
 
 function MyProjects() {
   const [projects, setProjects] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [projectName, setProjectName] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [editingProject, setEditingProject] = useState(null);
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [deletingProject, setDeletingProject] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProjects()
+      .then((data) => setProjects(data.data))
+      .catch((error) => console.error("Error fetching projects:", error));
+  }, []);
+  const handleAddProject = () => {
+    setEditingProject(null); // No estamos editando
+    setProjectName("");
+    setProjectDescription("");
+    setModalOpen(true);
+  };
+
+  const handleEditProject = (project) => {
+    setEditingProject(project); // Proyecto actual
+    setProjectName(project.name);
+    setProjectDescription(project.description);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setProjectName("");
+    setProjectDescription("");
+    setEditingProject(null);
+  };
+
+  const handleSubmitProject = (e) => {
+    e.preventDefault();
+
+    const owner = JSON.parse(localStorage.getItem("user")).id;
+    const members = [owner]; // Puedes ajustarlo si hay otros miembros
+    const projectData = {
+      name: projectName,
+      description: projectDescription,
+      owner,
+      members,
+    };
+
+    const action = editingProject
+      ? updateProject(editingProject._id, projectData)
+      : createProject(projectData);
+
+    action
+      .then(() => {
+        alert(editingProject ? "Proyecto actualizado." : "Proyecto creado.");
+        return fetchProjects();
+      })
       .then((data) => {
         setProjects(data.data);
       })
-      .catch((error) => {
-        console.error("Error fetching projects:", error);
-      });
-  }, []);
+      .catch((error) => console.error("Error al guardar el proyecto:", error))
+      .finally(() => closeModal());
+  };
 
-  if (!projects) return <div>Cargando...</div>;
+  const handleDeleteDialogOpen = (projectId) => {
+    setDeleteDialogOpen(true);
+    setDeletingProject(projectId);
+  };
+
+  const handleDeleteDialogClose = () => {
+    setDeleteDialogOpen(false);
+    setDeletingProject(null);
+  };
+
+  const confirmDeleteProject = () => {
+    deleteProject(deletingProject)
+      .then(() => {
+        alert("Proyecto eliminado.");
+        setProjects((prev) => prev.filter((p) => p._id !== deletingProject));
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => handleDeleteDialogClose());
+  };
+
+  if (!projects.length)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   return (
-    <div className={styles.projectList}>
-      {projects.map((project) => (
-        <Link
-          to={`/my-projects/${project._id}`}
-          key={project._id}
-          className={styles.projectCard}
-        >
-          <div>
-            <h2>{project.name}</h2>
-            <p>{project.description || "Descripción no disponible"}</p>
-          </div>
-        </Link>
-      ))}
-    </div>
+    <>
+      <button className={styles.addTaskButton} onClick={handleAddProject}>
+        Agregar Proyecto
+      </button>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <h2>{editingProject ? "Editar Proyecto" : "Agregar Proyecto"}</h2>
+        <form onSubmit={handleSubmitProject} className={styles.form}>
+          <input
+            type="text"
+            placeholder="Nombre del proyecto"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            className={styles.inputField}
+            required
+          />
+          <textarea
+            placeholder="Descripción del proyecto"
+            value={projectDescription}
+            onChange={(e) => setProjectDescription(e.target.value)}
+            className={styles.inputField}
+          />
+          <button type="submit" className={styles.button}>
+            {editingProject ? "Actualizar" : "Guardar"}
+          </button>
+        </form>
+      </Modal>
+      <div className={styles.projectList}>
+        {projects.map((project) => (
+          <Card
+            key={project._id}
+            title={project.name}
+            description={project.description || "Sin descripción"}
+            onClick={() => navigate(`/my-projects/${project._id}`)}
+          >
+            <button
+              className={styles.botonEdit}
+              onClick={(e) => {
+                e.stopPropagation(); // Evita la redirección
+                handleEditProject(project);
+              }}
+            >
+              Editar
+            </button>
+            <button
+              className={styles.botonDelete}
+              onClick={(e) => {
+                e.stopPropagation(); // Evita la redirección
+                handleDeleteDialogOpen(project._id);
+              }}
+            >
+              Eliminar
+            </button>
+          </Card>
+        ))}
+      </div>
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={handleDeleteDialogClose}
+        onConfirm={confirmDeleteProject}
+        message="¿Estás seguro de que deseas eliminar este proyecto?"
+        isLoading={false} // Puedes conectar este estado si es necesario
+      />
+    </>
   );
 }
 

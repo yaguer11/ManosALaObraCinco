@@ -1,4 +1,4 @@
-import styles from "../../styles/Home.module.css";
+import styles from "../Home/Home.module.scss";
 
 function Home() {
   return (
@@ -7,10 +7,16 @@ function Home() {
         Bienvenido a la App de Gestión de Proyectos
       </h1>
       <div className={styles.fondoDegradado}></div>
+      <img
+        src="/taskHome.jpg"
+        alt="Gestión de Proyectos"
+        className={styles.imagenHome}
+      />
+      <div className={styles.fondoDegradado}></div>
       <p className={styles.description}>
         Esta aplicación te ayuda a gestionar tus proyectos, épicas e historias
         de usuario de manera eficiente. Explora tus proyectos, consulta las
-        historias de cada épica y mantén todo organizado desde un solo lugar.
+        historias de cada épica y mantén todo organizado desde un solo lugar!!
       </p>
     </div>
   );

@@ -1,0 +1,39 @@
+$font-family: "Roboto Mono", monospace;
+$primary-color: rgba(65, 105, 225, 1);
+$text-color: #333;
+$card-bg: #f9f9f9;
+
+.storiesContainer {
+  padding: 2rem;
+  font-family: $font-family;
+  font-size: 1rem;
+  color: $primary-color;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.storyList {
+  list-style: none;
+  padding: 0;
+}
+
+.storyItem {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: $card-bg;
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: $text-color;
+  }
+}

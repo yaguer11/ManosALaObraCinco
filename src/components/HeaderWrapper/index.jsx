@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 const HeaderWrapper = () => {
   const { pathname } = useLocation();
-  const shouldShowHeader = pathname !== "/login";
+  const shouldShowHeader = pathname !== "/login" && pathname !== "/register";
   const headerConfig = useHeaderConfig();
 
   return shouldShowHeader ? <Header {...headerConfig} /> : null;

@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import ProjectDetails from "../pages/ProjectDetails";
 import EpicDetails from "../pages/EpicDetails";
 import StoryDetails from "../pages/StoryDetails";
+import Register from "../pages/Register";
 
 export const routes = [
   { path: "/", element: <Home />, isPrivate: true },
@@ -28,4 +29,5 @@ export const routes = [
   { path: "/my-stories", element: <MyStories />, isPrivate: true },
   { path: "/settings", element: <Settings />, isPrivate: true },
   { path: "/login", element: <Login />, isPrivate: false },
+  { path: "/register", element: <Register />, isPrivate: false },
 ];

@@ -1,4 +1,4 @@
-import styles from "../../styles/Task.module.css";
+import styles from "../Task/Task.module.scss";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 
