@@ -1,5 +1,7 @@
+@use "../../styles/variables.scss" as vars;
+
 .container {
-  font-family: "Roboto Mono", monospace;
+  font-family: vars.$font-family;
   padding: 16px;
 
   .name {
@@ -9,14 +11,14 @@
   }
 
   .description {
-    font-size: 18px;
+    font-size: vars.$font-size-lg;
     color: #666;
   }
 
   .addTaskButton {
-    font-family: "Roboto Mono", monospace;
+    font-family: vars.$font-family;
     background-color: rgba(65, 105, 225, 1);
-    color: white;
+    color: vars.$white;
     padding: 8px 16px;
     border: none;
     cursor: pointer;
@@ -28,7 +30,7 @@
     gap: 0.2rem;
 
     &:hover {
-      background-color: rgb(122, 152, 244);
+      background-color: vars.$hover-color;
     }
   }
 
