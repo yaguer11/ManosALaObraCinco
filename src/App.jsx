@@ -1,11 +1,11 @@
 import HeaderWrapper from "./components/HeaderWrapper";
-import AppRoutes from "./components/AppRoutes";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <>
       <HeaderWrapper />
-      <AppRoutes />
+      <Outlet />
     </>
   );
 }

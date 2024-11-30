@@ -6,6 +6,15 @@ $error-color: rgba(220, 17, 1, 0.8);
 $warning-color: #ffb103;
 $success-color: rgba(36, 241, 6, 0.8);
 $info-color: #0396ff;
+$error-secondary: #666; // Color secundario
+$error-bg: #fefefe; // Fondo claro
+$error-border: #ddd; // Borde
+$primary-gradient: linear-gradient(
+  90deg,
+  rgba(93, 118, 169, 1) 0%,
+  rgba(65, 105, 225, 1) 26%,
+  rgba(166, 166, 178, 1) 92%
+);
 
 // Colores de texto y fondo
 $white: #ffffff;

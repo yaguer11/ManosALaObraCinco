@@ -1,0 +1,39 @@
+@use "../../styles/variables.scss" as vars;
+
+.errorContainer {
+  font-family: vars.$font-family;
+  text-align: center;
+  padding: 2rem;
+  background-color: vars.$error-bg;
+  border: 1px solid vars.$error-border;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.title {
+  font-size: 2rem;
+  color: vars.$primary-color;
+  margin-bottom: 1rem;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: vars.$error-secondary;
+  margin-bottom: 1.5rem;
+}
+
+.image {
+  width: 100%;
+  max-width: 400px;
+  margin: 1.5rem auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.footer {
+  font-size: 1rem;
+  color: vars.$error-secondary;
+  margin-top: 1.5rem;
+}
