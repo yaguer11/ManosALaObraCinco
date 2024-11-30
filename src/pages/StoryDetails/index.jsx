@@ -3,15 +3,14 @@ import { useParams } from "react-router-dom";
 import TaskFormDialog from "../../components/TaskFormDialog";
 import Task from "../../components/Task";
 import styles from "../StoryDetails/StoryDetails.module.scss";
-import { IoMdAdd } from "react-icons/io";
-import { MdDelete } from "react-icons/md";
-import { RxCross2 } from "react-icons/rx";
+import Alert from "../../components/Alert";
 import {
-  fetchStory,
   fetchTasksByStory,
   createOrUpdateTask,
   deleteTask,
-} from "../../services/api";
+} from "../../services/tasks";
+import DeleteDialog from "../../components/DeleteDialog";
+import { fetchStoryDetails } from "../../services/stories";
 import Loader from "../../components/Loader";
 
 function StoryDetails() {
@@ -22,16 +21,33 @@ function StoryDetails() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState({
+    visible: false,
+    message: "",
+    type: "success",
+  });
+
+  const showAlert = (message, type) => {
+    setAlert({ visible: true, message, type });
+    setTimeout(
+      () => setAlert({ visible: false, message: "", type: "success" }),
+      3000
+    ); // Ocultar después de 3 segundos
+  };
 
   useEffect(() => {
-    fetchStory(storyId)
+    fetchStoryDetails(storyId)
       .then((data) => setStory(data))
-      .catch((error) => console.error("Error fetching story:", error));
+      .catch((error) =>
+        showAlert("Error al recuperar storia: " + error.message, "error")
+      );
     fetchTasksByStory(storyId)
       .then((data) => {
         setTasks(data.data);
       })
-      .catch((error) => console.error("Error fetching tasks:", error));
+      .catch((error) =>
+        showAlert("Error al recuperar tareas: " + error.message, "error")
+      );
   }, [storyId]);
 
   const handleAddTask = () => {
@@ -46,6 +62,8 @@ function StoryDetails() {
 
   const handleSubmitTask = (taskData) => {
     setIsLoading(true);
+    const action = currentTask ? "actualizada" : "creada";
+
     createOrUpdateTask(taskData, currentTask?._id, storyId)
       .then((data) => {
         setTasks((prev) => {
@@ -56,9 +74,12 @@ function StoryDetails() {
           }
           return [...prev, data.task];
         });
+        showAlert(`Tarea ${action}`, currentTask ? "info" : "success");
         setIsDialogOpen(false);
       })
-      .catch((error) => console.error("Error saving task:", error))
+      .catch((error) =>
+        showAlert("Error al guardar tarea: " + error.message, "error")
+      )
       .finally(() => setIsLoading(false));
   };
 
@@ -67,14 +88,21 @@ function StoryDetails() {
     setIsDeleteDialogOpen(true);
   };
 
+  const handleDeleteDialogClose = () => {
+    setIsDeleteDialogOpen(false);
+  };
+
   const confirmDeleteTask = () => {
     setIsLoading(true);
     deleteTask(currentTask._id)
       .then(() => {
         setTasks((prev) => prev.filter((task) => task._id !== currentTask._id));
+        showAlert("Tarea eliminada", "error");
         setIsDeleteDialogOpen(false);
       })
-      .catch((error) => console.error("Error deleting task:", error))
+      .catch((error) =>
+        showAlert("Error al eliminar tarea: " + error.message, "error")
+      )
       .finally(() => setIsLoading(false));
   };
 
@@ -90,8 +118,7 @@ function StoryDetails() {
       <h1 className={styles.name}>{story.name}</h1>
       <p className={styles.description}>{story.description}</p>
       <button onClick={handleAddTask} className={styles.addTaskButton}>
-        <IoMdAdd className={styles.logo} />
-        Agregar
+        Agregar tarea
       </button>
       <div className={styles.taskList}>
         {tasks?.map(
@@ -113,33 +140,18 @@ function StoryDetails() {
         initialData={currentTask}
         isLoading={isLoading}
       />
-      {isDeleteDialogOpen && (
-        <div className={styles.dialogOverlay}>
-          <div className={styles.dialogContent}>
-            <h2>Eliminar</h2>
-            <p>
-              ¿Estás seguro de que deseas eliminar la tarea &quot;
-              {currentTask?.name}&quot;?
-            </p>
-            <div className={styles.buttons}>
-              <button
-                className={styles.cancelar}
-                onClick={() => setIsDeleteDialogOpen(false)}
-              >
-                <RxCross2 />
-                Cancelar
-              </button>
-              <button
-                className={styles.eliminar}
-                onClick={confirmDeleteTask}
-                disabled={isLoading}
-              >
-                <MdDelete />
-                {isLoading ? "Eliminando..." : "Eliminar"}
-              </button>
-            </div>
-          </div>
-        </div>
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={handleDeleteDialogClose}
+        onConfirm={confirmDeleteTask}
+        message="¿Estás seguro de que deseas eliminar esta tarea?"
+      />
+      {alert.visible && (
+        <Alert
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert({ visible: false })}
+        />
       )}
     </div>
   );

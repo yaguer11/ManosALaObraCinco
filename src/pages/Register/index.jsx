@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../services/api";
+import { useNavigate, Link } from "react-router-dom";
+import { registerUser } from "../../services/auth";
 import styles from "../Register/Register.module.scss";
 
 function Register() {
@@ -88,6 +88,9 @@ function Register() {
         <button type="submit" className={styles.button}>
           Registrarse
         </button>
+        <p className={styles.registerLink}>
+          ¿Ya tienes una cuenta? <Link to="/login">Login</Link>
+        </p>
       </form>
     </div>
   );

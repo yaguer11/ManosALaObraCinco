@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../MyProjects/MyProjects.module.scss";
+
 import {
   fetchProjects,
   createProject,
   deleteProject,
   updateProject,
-} from "../../services/api";
+} from "../../services/projects";
 import Card from "../../components/Card";
 import Loader from "../../components/Loader";
 import Modal from "../../components/Modal";
 import DeleteDialog from "../../components/DeleteDialog";
+import Alert from "../../components/Alert";
+import { MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 
 function MyProjects() {
   const [projects, setProjects] = useState([]);
@@ -20,6 +24,11 @@ function MyProjects() {
   const [editingProject, setEditingProject] = useState(null);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deletingProject, setDeletingProject] = useState(null);
+  const [alert, setAlert] = useState({
+    visible: false,
+    message: "",
+    type: "success",
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +41,14 @@ function MyProjects() {
     setProjectName("");
     setProjectDescription("");
     setModalOpen(true);
+  };
+
+  const showAlert = (message, type) => {
+    setAlert({ visible: true, message, type });
+    setTimeout(
+      () => setAlert({ visible: false, message: "", type: "success" }),
+      3000
+    ); // Ocultar después de 3 segundos
   };
 
   const handleEditProject = (project) => {
@@ -66,13 +83,16 @@ function MyProjects() {
 
     action
       .then(() => {
-        alert(editingProject ? "Proyecto actualizado." : "Proyecto creado.");
+        showAlert(
+          editingProject ? "Proyecto actualizado." : "Proyecto creado.",
+          editingProject ? "info" : "success"
+        );
         return fetchProjects();
       })
       .then((data) => {
         setProjects(data.data);
       })
-      .catch((error) => console.error("Error al guardar el proyecto:", error))
+      .catch((error) => showAlert("Error al guardar el proyecto:", error))
       .finally(() => closeModal());
   };
 
@@ -89,10 +109,10 @@ function MyProjects() {
   const confirmDeleteProject = () => {
     deleteProject(deletingProject)
       .then(() => {
-        alert("Proyecto eliminado.");
+        showAlert("Proyecto eliminado", "error");
         setProjects((prev) => prev.filter((p) => p._id !== deletingProject));
       })
-      .catch((error) => alert(error.message))
+      .catch((error) => showAlert(error.message, "warning"))
       .finally(() => handleDeleteDialogClose());
   };
 
@@ -125,9 +145,18 @@ function MyProjects() {
             onChange={(e) => setProjectDescription(e.target.value)}
             className={styles.inputField}
           />
-          <button type="submit" className={styles.button}>
-            {editingProject ? "Actualizar" : "Guardar"}
-          </button>
+          <div className={styles.conteinerButtons}>
+            <button
+              type="button"
+              className={styles.cancelar}
+              onClick={closeModal}
+            >
+              Cancelar
+            </button>
+            <button type="submit" className={styles.guardar}>
+              {editingProject ? "Actualizar" : "Guardar"}
+            </button>
+          </div>
         </form>
       </Modal>
       <div className={styles.projectList}>
@@ -141,19 +170,21 @@ function MyProjects() {
             <button
               className={styles.botonEdit}
               onClick={(e) => {
-                e.stopPropagation(); // Evita la redirección
+                e.stopPropagation();
                 handleEditProject(project);
               }}
             >
+              <MdEdit />
               Editar
             </button>
             <button
               className={styles.botonDelete}
               onClick={(e) => {
-                e.stopPropagation(); // Evita la redirección
+                e.stopPropagation();
                 handleDeleteDialogOpen(project._id);
               }}
             >
+              <MdDelete />
               Eliminar
             </button>
           </Card>
@@ -164,8 +195,14 @@ function MyProjects() {
         onClose={handleDeleteDialogClose}
         onConfirm={confirmDeleteProject}
         message="¿Estás seguro de que deseas eliminar este proyecto?"
-        isLoading={false} // Puedes conectar este estado si es necesario
       />
+      {alert.visible && (
+        <Alert
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert({ visible: false })}
+        />
+      )}
     </>
   );
 }

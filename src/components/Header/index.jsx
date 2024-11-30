@@ -13,16 +13,17 @@ function Header({ title, showBack }) {
     setIsOpen(!isOpen);
   };
 
-  // Close the sidebar when clicking outside
+  const handleClickInicio = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isOpen && !event.target.closest(`.${styles.sidebar}`)) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -49,7 +50,9 @@ function Header({ title, showBack }) {
         </div>
         <ul className={styles.topLinks}>
           <li>
-            <Link to="/">Inicio</Link>
+            <Link to="/" onClick={handleClickInicio}>
+              Inicio
+            </Link>
           </li>
           <li>
             <Link to="/my-projects">Mis Proyectos</Link>

@@ -1,17 +1,17 @@
 @use "../../styles/variables.scss" as vars;
 
 .card {
-  font-family: "Roboto Mono", monospace;
+  font-family: vars.$font-family;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
-  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: vars.$card-shadow;
   transition: transform 0.2s ease;
   cursor: pointer;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   h2 {

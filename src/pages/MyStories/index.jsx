@@ -1,6 +1,6 @@
 import styles from "../MyStories/MyStories.module.scss";
 import { useEffect, useState } from "react";
-import { fetchStories } from "../../services/api";
+import { fetchStories } from "../../services/stories";
 import Loader from "../../components/Loader";
 
 function MyStories() {
@@ -11,7 +11,7 @@ function MyStories() {
       .then((data) => {
         setStories(data.data);
       })
-      .catch((error) => console.error("Error fetching stories:", error));
+      .catch((error) => console.error("Error al recuperar historias:", error));
   }, []);
 
   if (!stories)

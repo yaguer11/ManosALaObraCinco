@@ -1,6 +1,36 @@
+// Colores principales
 $primary-color: rgba(65, 105, 225, 1);
 $secondary-color: rgb(220, 220, 227);
 $hover-color: rgb(122, 152, 244);
+$error-color: rgba(220, 17, 1, 0.8);
+$warning-color: #ffb103;
+$success-color: rgba(36, 241, 6, 0.8);
+$info-color: #0396ff;
+
+// Colores de texto y fondo
 $white: #ffffff;
+$text-color: #666;
+$background-color: #f9f9f9;
+$title-bg: rgb(222, 229, 249);
+
+// Tipografía
 $font-family: "Roboto Mono", monospace;
+$font-size-base: 16px;
+$font-size-lg: 18px;
+$font-size-sm: 14px;
+
+// Sombra y bordes
 $card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+$border-color: #ddd;
+
+// Espaciado
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+
+// Transiciones
+$transition-fast: 0.2s ease;
+$transition-medium: 0.3s ease;
+$transition-slow: 0.5s ease;
+$hover-color: rgb(122, 152, 244);

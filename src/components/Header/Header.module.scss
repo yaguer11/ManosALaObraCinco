@@ -6,6 +6,7 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
 /* Estilo general del header */
 header {
   font-family: $font-family;
+  font-size: 17px;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,53 +1,133 @@
-$font-family: "Roboto Mono", monospace;
-$primary-color: rgba(65, 105, 225, 1);
-$text-color: #666;
-$card-bg: #f0f0f0;
-$card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+@use "../../styles/variables.scss" as vars;
 
 .container {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   padding: 16px;
 }
 
 .projectName {
   font-size: 2rem;
-  color: $primary-color;
+  color: vars.$primary-color;
   margin-bottom: 1.5rem;
 }
 
 .projectDescription {
   font-size: 18px;
-  color: $text-color;
+  color: vars.$text-color;
+}
+
+.addButton {
+  background-color: vars.$primary-color;
+  color: vars.$white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 16px;
+
+  &:hover {
+    background-color: vars.$hover-color;
+  }
+}
+
+.inputField {
+  font-family: vars.$font-family;
+  width: 100%;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.conteinerButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+
+  .cancelar,
+  .guardar {
+    font-family: "Roboto Mono", monospace;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.cancelar {
+      background-color: rgb(220, 220, 227);
+    }
+
+    &.guardar {
+      background-color: rgba(65, 105, 225, 1);
+      color: white;
+    }
+  }
 }
 
 .epicList {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 16px;
+  padding: 16px;
+  .botonEdit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto Mono", monospace;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    gap: 0.2rem;
+    background-color: #f0f0f0;
+    color: black;
+  }
+
+  .botonDelete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto Mono", monospace;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    gap: 0.2rem;
+    background-color: rgb(237, 81, 54);
+    color: rgb(255, 255, 255);
+  }
 }
 
-.epicCard {
-  padding: 8px;
-  border: 1px solid #ddd;
+.form {
+  display: flex;
+  flex-direction: column;
+  font-family: vars.$font-family;
+  background-color: white;
   border-radius: 8px;
-  background-color: $card-bg;
-  box-shadow: $card-shadow;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
 
-  &:hover {
-    transform: scale(1.02);
-  }
+.conteinerButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
 
-  h2 {
-    margin: 0 0 8px 0;
-    font-size: 18px;
-  }
+  .cancelar,
+  .guardar {
+    font-family: "Roboto Mono", monospace;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 
-  p {
-    margin: 0;
-    font-size: 14px;
-    color: $text-color;
+    &.cancelar {
+      background-color: rgb(220, 220, 227);
+    }
+
+    &.guardar {
+      background-color: rgba(65, 105, 225, 1);
+      color: white;
+    }
   }
 }

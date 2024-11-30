@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import styles from "../TaskFormDialog/TaskFormDialog.module.scss";
-import { RxCross2 } from "react-icons/rx";
-import { FaSave } from "react-icons/fa";
 
 /* eslint-disable react/prop-types */
 const TaskFormDialog = ({
@@ -60,7 +58,6 @@ const TaskFormDialog = ({
               onClick={onClose}
               disabled={isLoading}
             >
-              <RxCross2 />
               Cancelar
             </button>
             <button
@@ -68,7 +65,6 @@ const TaskFormDialog = ({
               type="submit"
               disabled={isLoading}
             >
-              <FaSave />
               {isLoading ? "Guardando..." : "Guardar"}
             </button>
           </div>

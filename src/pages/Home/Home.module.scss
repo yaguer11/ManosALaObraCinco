@@ -1,29 +1,50 @@
-@import "../../styles/variables.scss";
-
-$font-family: "Roboto Mono", monospace;
-$primary-color: rgba(65, 105, 225, 1);
-$title-bg: rgb(222, 229, 249);
-$card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+@use "../../styles/variables.scss" as vars;
 
 .homeContainer {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  min-height: 80vh;
+  animation: fadeIn 2s ease-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 .title {
   font-size: 2rem;
-  color: $primary-color;
+  color: vars.$primary-color;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: $title-bg;
-  box-shadow: $card-shadow;
+  background-color: vars.$title-bg;
+  box-shadow: vars.$card-shadow;
   text-decoration: none;
   width: 70%;
+  margin-top: 1rem;
+  animation: slideInFromLeft 1.8s ease-out;
+
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
 
 .description {
@@ -35,8 +56,9 @@ $card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
-  box-shadow: $card-shadow;
+  box-shadow: vars.$card-shadow;
   width: 70%;
+  animation: fadeIn 2s ease-out 0.8s;
 }
 
 .fondoDegradado {
@@ -45,12 +67,25 @@ $card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
   background: linear-gradient(
     90deg,
     rgba(220, 220, 227, 1) 0%,
-    $primary-color 100%
+    vars.$primary-color 100%
   );
   border-radius: 8px;
 }
 
 .imagenHome {
   width: 70%;
-  box-shadow: $card-shadow;
+  box-shadow: vars.$card-shadow;
+
+  animation: zoomIn 1.6s ease-out;
+
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }

@@ -1,6 +1,4 @@
-$primary-color: rgba(65, 105, 225, 1); // Variable para color primario
-$hover-color: rgb(122, 152, 244); // Variable para color hover
-$font-family: "Roboto Mono", monospace; // Fuente principal
+@use "../../styles/variables.scss" as vars;
 
 .projectList {
   display: grid;
@@ -8,6 +6,9 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
   gap: 16px;
   padding: 16px;
   .botonEdit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: "Roboto Mono", monospace;
     padding: 8px;
     border: none;
@@ -19,6 +20,9 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
   }
 
   .botonDelete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: "Roboto Mono", monospace;
     padding: 8px;
     border: none;
@@ -31,7 +35,7 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
 }
 
 .projectCard {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -39,7 +43,6 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.02);
@@ -58,11 +61,11 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
 }
 
 .addTaskButton {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   font-size: 14px;
-  background-color: $primary-color;
+  background-color: vars.$primary-color;
   color: white;
-  padding: 6px;
+  padding: 8px 16px;
   border: none;
   cursor: pointer;
   border-radius: 4px;
@@ -73,14 +76,14 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
   gap: 0.2rem;
 
   &:hover {
-    background-color: $hover-color;
+    background-color: vars.$hover-color;
   }
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  font-family: $font-family;
+  font-family: vars.$font-family;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -88,7 +91,7 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
 }
 
 .inputField {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   width: 100%;
   padding: 0.5rem;
   margin: 1rem 0;
@@ -97,14 +100,26 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
   box-sizing: border-box;
 }
 
-.button {
-  font-family: $font-family;
-  background-color: rgba(65, 105, 225, 1);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 8px;
-  gap: 0.2rem;
-  align-self: flex-end;
+.conteinerButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+
+  .cancelar,
+  .guardar {
+    font-family: "Roboto Mono", monospace;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.cancelar {
+      background-color: rgb(220, 220, 227);
+    }
+
+    &.guardar {
+      background-color: rgba(65, 105, 225, 1);
+      color: white;
+    }
+  }
 }
