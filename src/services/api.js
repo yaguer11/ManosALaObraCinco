@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "https://task-project-api.onrender.com";
 
 const getToken = () => localStorage.getItem("token");
 
