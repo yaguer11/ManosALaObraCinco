@@ -1,26 +1,23 @@
-$font-family: "Roboto Mono", monospace;
-$primary-color: rgba(65, 105, 225, 1);
-$secondary-color: #666;
-$card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+@use "../../styles/variables.scss" as vars;
 
 .container {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   padding: 16px;
 }
 
 .name {
   font-size: 2rem;
-  color: $primary-color;
+  color: vars.$primary-color;
   margin-bottom: 1.5rem;
 }
 
 .description {
   font-size: 18px;
-  color: $secondary-color;
+  color: vars.$error-secondary;
 }
 
 .addButton {
-  background-color: $primary-color;
+  background-color: vars.$primary-color;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -36,21 +33,39 @@ $card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
 .form {
   display: flex;
   flex-direction: column;
-  font-family: $font-family;
+  font-family: vars.$font-family;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
+
+  label {
+    font-size: 14px;
+    color: vars.$secondary-color;
+    font-weight: bold;
+  }
 }
 
-.inputField {
-  font-family: $font-family;
+.inputField,
+.selectField,
+.numberField {
+  font-family: vars.$font-family;
   width: 100%;
   padding: 0.5rem;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+.inputRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .selectWrapper,
+  .numberWrapper {
+    flex: 1;
+  }
 }
 
 .conteinerButtons {
@@ -60,7 +75,7 @@ $card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
 
   .cancelar,
   .guardar {
-    font-family: "Roboto Mono", monospace;
+    font-family: vars.$font-family;
     padding: 8px;
     border: none;
     border-radius: 4px;
@@ -86,7 +101,7 @@ $card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Roboto Mono", monospace;
+    font-family: vars.$font-family;
     padding: 8px;
     border: none;
     border-radius: 4px;
@@ -100,7 +115,7 @@ $card-shadow: 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Roboto Mono", monospace;
+    font-family: vars.$font-family;
     padding: 8px;
     border: none;
     border-radius: 4px;

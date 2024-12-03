@@ -59,6 +59,9 @@
     color: #666;
   }
 }
+.conteinerAdd {
+  padding: 0px 0px 0px 20px;
+}
 
 .addTaskButton {
   font-family: vars.$font-family;
@@ -86,15 +89,22 @@
   font-family: vars.$font-family;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
+
+  label {
+    padding: 0.1rem;
+    font-size: 13px;
+    color: rgb(78, 76, 76);
+    font-weight: bold;
+  }
 }
 
 .inputField {
   font-family: vars.$font-family;
   width: 100%;
   padding: 0.5rem;
-  margin: 1rem 0;
+  margin-top: 0px;
+  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;

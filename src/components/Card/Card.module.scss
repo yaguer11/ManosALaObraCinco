@@ -25,6 +25,16 @@
     color: #666;
   }
 
+  .label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .creationDate {
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
   .actions {
     display: flex;
     justify-content: end;

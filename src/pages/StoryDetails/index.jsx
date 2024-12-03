@@ -10,6 +10,7 @@ import {
   deleteTask,
 } from "../../services/tasks";
 import DeleteDialog from "../../components/DeleteDialog";
+import AddButton from "../../components/AddButton";
 import { fetchStoryDetails } from "../../services/stories";
 import Loader from "../../components/Loader";
 
@@ -117,16 +118,18 @@ function StoryDetails() {
     <div className={styles.container}>
       <h1 className={styles.name}>{story.name}</h1>
       <p className={styles.description}>{story.description}</p>
-      <button onClick={handleAddTask} className={styles.addTaskButton}>
-        Agregar tarea
-      </button>
+      <AddButton onClick={handleAddTask} text="Agregar tarea" />
       <div className={styles.taskList}>
         {tasks?.map(
           (task) =>
             task?.name && (
               <Task
                 key={task._id}
-                texto={task.name}
+                name={task.name}
+                description={task.description}
+                createdAt={task.createdAt}
+                dueDate={task.dueDate}
+                done={task.done}
                 onEditar={() => handleEditTask(task)}
                 onEliminar={() => handleDeleteTask(task)}
               />

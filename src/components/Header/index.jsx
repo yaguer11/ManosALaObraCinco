@@ -13,7 +13,7 @@ function Header({ title, showBack }) {
     setIsOpen(!isOpen);
   };
 
-  const handleClickInicio = () => {
+  const handleClick = () => {
     setIsOpen(false);
   };
 
@@ -50,20 +50,26 @@ function Header({ title, showBack }) {
         </div>
         <ul className={styles.topLinks}>
           <li>
-            <Link to="/" onClick={handleClickInicio}>
+            <Link to="/" onClick={handleClick}>
               Inicio
             </Link>
           </li>
           <li>
-            <Link to="/my-projects">Mis Proyectos</Link>
+            <Link onClick={handleClick} to="/my-projects">
+              Mis Proyectos
+            </Link>
           </li>
           <li>
-            <Link to="/my-stories">Mis Historias</Link>
+            <Link onClick={handleClick} to="/my-stories">
+              Mis Historias
+            </Link>
           </li>
         </ul>
         <ul className={styles.bottomLinks}>
           <li>
-            <Link to="/settings">Ajustes</Link>
+            <Link onClick={handleClick} to="/settings">
+              Ajustes
+            </Link>
           </li>
         </ul>
       </nav>

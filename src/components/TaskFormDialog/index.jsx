@@ -9,20 +9,30 @@ const TaskFormDialog = ({
   initialData,
   isLoading,
 }) => {
-  const [formData, setFormData] = useState({ name: "", description: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    dueDate: "",
+    done: false,
+  });
 
   useEffect(() => {
     if (initialData) {
       setFormData({
         name: initialData.name || "",
         description: initialData.description || "",
+        dueDate: initialData.dueDate ? initialData.dueDate.slice(0, 10) : "",
+        done: initialData.done || false,
       });
     }
   }, [initialData]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -37,20 +47,45 @@ const TaskFormDialog = ({
       <div className={styles.dialog}>
         <h2>{initialData ? "Editar tarea" : "Nueva tarea"}</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
+          <label htmlFor="name">Nombre</label>
           <input
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Nombre"
+            placeholder="Ingrese nombre"
             required
           />
+          <label htmlFor="description">Descripción</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
-            placeholder="Descripción"
+            placeholder="Ingrese descripción"
             required
           />
+          <div className={styles.inputRow}>
+            <div className={styles.inputGroup}>
+              <label htmlFor="dueDate">Fecha de vencimiento</label>
+              <input
+                type="date"
+                name="dueDate"
+                value={formData.dueDate}
+                onChange={handleChange}
+                className={styles.inputField}
+              />
+            </div>
+
+            <div className={styles.checkboxGroup}>
+              <label htmlFor="done">Completada</label>
+              <input
+                type="checkbox"
+                name="done"
+                checked={formData.done}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
           <div className={styles.conteinerButtons}>
             <button
               className={styles.cancelar}

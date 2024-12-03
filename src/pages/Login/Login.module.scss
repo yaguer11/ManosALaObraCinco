@@ -1,21 +1,12 @@
-$font-family: "Roboto Mono", monospace; // Fuente principal
-$primary-gradient: linear-gradient(
-  90deg,
-  rgba(93, 118, 169, 1) 0%,
-  rgba(65, 105, 225, 1) 26%,
-  rgba(166, 166, 178, 1) 92%
-); // Gradiente de fondo
-$button-bg: rgb(37, 38, 41); // Color del botón
-$button-hover-bg: #727276; // Color del botón al pasar el mouse
-$link-color: rgb(65, 105, 225); // Color del enlace
+@use "../../styles/variables.scss" as vars;
 
 .container {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: $primary-gradient;
+  background: vars.$primary-gradient;
 }
 
 .form {
@@ -38,14 +29,14 @@ $link-color: rgb(65, 105, 225); // Color del enlace
 .button {
   width: 100%;
   padding: 0.75rem;
-  background-color: $button-bg;
+  background-color: vars.$button-bg;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 
   &:hover {
-    background-color: $button-hover-bg;
+    background-color: vars.$button-hover-bg;
   }
 }
 
@@ -61,7 +52,7 @@ $link-color: rgb(65, 105, 225); // Color del enlace
   text-align: center;
 
   a {
-    color: $link-color;
+    color: vars.$link-color;
     text-decoration: none;
 
     &:hover {

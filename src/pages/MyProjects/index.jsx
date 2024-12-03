@@ -13,6 +13,7 @@ import Loader from "../../components/Loader";
 import Modal from "../../components/Modal";
 import DeleteDialog from "../../components/DeleteDialog";
 import Alert from "../../components/Alert";
+import AddButton from "../../components/AddButton";
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 
@@ -24,6 +25,7 @@ function MyProjects() {
   const [editingProject, setEditingProject] = useState(null);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deletingProject, setDeletingProject] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [alert, setAlert] = useState({
     visible: false,
     message: "",
@@ -34,7 +36,8 @@ function MyProjects() {
   useEffect(() => {
     fetchProjects()
       .then((data) => setProjects(data.data))
-      .catch((error) => console.error("Error fetching projects:", error));
+      .catch((error) => console.error("Error al recuperar proyectos:", error))
+      .finally(() => setLoading(false));
   }, []);
   const handleAddProject = () => {
     setEditingProject(null); // No estamos editando
@@ -116,7 +119,7 @@ function MyProjects() {
       .finally(() => handleDeleteDialogClose());
   };
 
-  if (!projects.length)
+  if (loading)
     return (
       <div>
         <Loader />
@@ -125,22 +128,26 @@ function MyProjects() {
 
   return (
     <>
-      <button className={styles.addTaskButton} onClick={handleAddProject}>
-        Agregar Proyecto
-      </button>
+      <div className={styles.conteinerAdd}>
+        <AddButton onClick={handleAddProject} text="Agregar proyecto" />
+      </div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2>{editingProject ? "Editar Proyecto" : "Agregar Proyecto"}</h2>
         <form onSubmit={handleSubmitProject} className={styles.form}>
+          <label htmlFor="projectName">Nombre</label>
           <input
+            name="projectName"
             type="text"
-            placeholder="Nombre del proyecto"
+            placeholder="Ingrese nombre"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
             className={styles.inputField}
             required
           />
+          <label htmlFor="projectDescription">Descripción</label>
           <textarea
-            placeholder="Descripción del proyecto"
+            name="projectDescription"
+            placeholder="Ingrese descripción"
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
             className={styles.inputField}
@@ -165,6 +172,7 @@ function MyProjects() {
             key={project._id}
             title={project.name}
             description={project.description || "Sin descripción"}
+            createdAt={project.createdAt}
             onClick={() => navigate(`/my-projects/${project._id}`)}
           >
             <button

@@ -1,43 +1,73 @@
+@use "../../styles/variables.scss" as vars;
+
 .settingsContainer {
-  font-family: "Roboto Mono", monospace;
+  font-family: vars.$font-family;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh; /* Cubre toda la pantalla */
   padding: 2rem;
 
   .title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: rgba(65, 105, 225, 1);
     margin-bottom: 1.5rem;
+    text-align: center;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.1);
+  width: 40%;
+  align-items: center;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    align-self: flex-start;
   }
 
-  .userInfo {
-    font-size: 1.2rem;
-    color: #5f5d5d;
-    background: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 1rem;
-
-    p {
-      margin: 0.5rem 0;
-    }
+  input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
   }
 
-  .logoutButton {
-    font-family: "Roboto Mono", monospace;
+  .buttonContainer {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    background-color: rgba(65, 105, 225, 1);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    justify-content: flex-end;
+    gap: 1rem;
+    width: 100%;
 
-    &:hover {
-      background-color: rgb(122, 152, 244);
+    .updateButton,
+    .logoutButton {
+      font-family: vars.$font-family;
+      padding: 0.5rem 1rem;
+      background-color: rgba(65, 105, 225, 1);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgb(122, 152, 244);
+      }
+    }
+
+    .logoutButton {
+      background-color: rgb(237, 81, 54);
+
+      &:hover {
+        background-color: rgb(241, 103, 79);
+      }
     }
   }
 }

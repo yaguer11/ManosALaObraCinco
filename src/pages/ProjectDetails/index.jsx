@@ -16,6 +16,7 @@ import Loader from "../../components/Loader";
 import DeleteDialog from "../../components/DeleteDialog";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import AddButton from "../../components/AddButton";
 
 function ProjectDetails() {
   const { projectId } = useParams();
@@ -133,22 +134,24 @@ function ProjectDetails() {
         <p className={styles.projectDescription}>
           {currentProject.description}
         </p>
-        <button className={styles.addButton} onClick={handleAddEpic}>
-          Agregar Épica
-        </button>
+        <AddButton onClick={handleAddEpic} text="Agregar épica" />
         <Modal isOpen={isModalOpen} onClose={closeModal}>
           <h2>{editingEpic ? "Editar Épica" : "Agregar Épica"}</h2>
           <form onSubmit={handleSubmitEpic} className={styles.form}>
+            <label htmlFor="epicName">Nombre</label>
             <input
+              name="epicName"
               type="text"
-              placeholder="Nombre de la épica"
+              placeholder="Ingrese nombre"
               value={epicName}
               onChange={(e) => setEpicName(e.target.value)}
               required
               className={styles.inputField}
             />
+            <label htmlFor="epicDescription">Descripción</label>
             <textarea
-              placeholder="Descripción de la épica"
+              name="epicDescription"
+              placeholder="Ingrese descripción"
               value={epicDescription}
               onChange={(e) => setEpicDescription(e.target.value)}
               className={styles.inputField}

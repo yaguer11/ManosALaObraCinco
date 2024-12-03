@@ -1,25 +1,21 @@
-$primary-color: rgba(65, 105, 225, 1); // Color primario
-$secondary-color: rgb(220, 220, 227); // Color secundario (fondo del header)
-$white: white; // Blanco para textos
-$font-family: "Roboto Mono", monospace; // Fuente principal
+@use "../../styles/variables.scss" as vars;
 
-/* Estilo general del header */
 header {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   font-size: 17px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: $secondary-color;
-  color: $primary-color;
+  background: vars.$secondary-color;
+  color: vars.$primary-color;
   padding: 1rem;
+  z-index: 1000;
 }
 
-/* Botones (Menú y Volver) */
 .buttonContainer {
-  display: flex; // Alinea los botones horizontalmente
-  align-items: center; // Alinea los íconos verticalmente
-  gap: 1rem; // Espacio entre los botones
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .backBtn,
@@ -27,26 +23,25 @@ header {
   font-size: 2rem;
   background: none;
   border: none;
-  color: $primary-color;
+  color: vars.$primary-color;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Estilo del sidebar */
 .sidebar {
   position: fixed;
   top: 0;
   left: -300px;
   width: 300px;
   height: 100%;
-  background: $primary-color;
-  color: $white;
+  background: vars.$primary-color;
+  color: vars.$white;
   transition: left 0.3s ease;
   display: flex;
   flex-direction: column;
-  align-items: center; // Centra horizontalmente los enlaces
+  align-items: center;
 
   &.open {
     left: 0;
@@ -64,13 +59,12 @@ header {
     padding: 1rem;
 
     a {
-      color: $white;
+      color: vars.$white;
       text-decoration: none;
     }
   }
 }
 
-/* Logo */
 .logoContainer {
   text-align: center;
   margin: 1rem 0;
@@ -85,12 +79,10 @@ header {
   }
 }
 
-/* Enlaces superiores */
 .topLinks {
   margin-top: 1rem;
 }
 
-/* Enlaces inferiores */
 .bottomLinks {
   flex-direction: column;
   display: flex;

@@ -33,7 +33,7 @@ function Register() {
     registerUser(formData)
       .then(() => {
         setSuccessMessage("Usuario registrado exitosamente. Redirigiendo...");
-        setTimeout(() => navigate("/login"), 2000); // Redirige tras 2 segundos
+        setTimeout(() => navigate("/login"), 2000);
       })
       .catch((err) => setError(err.message));
   };

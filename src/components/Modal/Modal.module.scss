@@ -1,4 +1,4 @@
-$font-family: "Roboto Mono", monospace; // Fuente principal
+@use "../../styles/variables.scss" as vars;
 
 .modalOverlay {
   position: fixed;
@@ -14,7 +14,7 @@ $font-family: "Roboto Mono", monospace; // Fuente principal
 }
 
 .modalContent {
-  font-family: $font-family;
+  font-family: vars.$font-family;
   background: white;
   border-radius: 8px;
   padding: 20px;

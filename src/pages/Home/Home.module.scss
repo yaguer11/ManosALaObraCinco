@@ -8,57 +8,48 @@
   align-items: center;
   text-align: center;
   min-height: 80vh;
-  animation: fadeIn 2s ease-out;
+  animation: fadeIn 1s ease-out;
 
   @keyframes fadeIn {
     from {
-      opacity: 0;
-      transform: translateY(10px);
+      opacity: 0.5;
     }
     to {
       opacity: 1;
-      transform: translateY(0);
     }
   }
 }
 
-.title {
-  font-size: 2rem;
-  color: vars.$primary-color;
+.title,
+.description,
+.imagenHome {
+  width: 70%;
   padding: 8px;
-  border: 1px solid #ddd;
+
   border-radius: 8px;
+  box-shadow: vars.$card-shadow;
   background-color: vars.$title-bg;
-  box-shadow: vars.$card-shadow;
-  text-decoration: none;
-  width: 70%;
-  margin-top: 1rem;
-  animation: slideInFromLeft 1.8s ease-out;
+  animation: fadeIn 1s ease-out;
 
-  @keyframes slideInFromLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  &.title {
+    font-size: 2rem;
+    color: vars.$primary-color;
+    text-decoration: none;
+    margin-top: 1rem;
   }
-}
 
-.description {
-  text-align: justify;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  color: #333;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: vars.$card-shadow;
-  width: 70%;
-  animation: fadeIn 2s ease-out 0.8s;
+  &.description {
+    text-align: justify;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+  }
+
+  &.imagenHome {
+    box-shadow: vars.$card-shadow;
+    padding: 0px;
+  }
 }
 
 .fondoDegradado {
@@ -70,22 +61,4 @@
     vars.$primary-color 100%
   );
   border-radius: 8px;
-}
-
-.imagenHome {
-  width: 70%;
-  box-shadow: vars.$card-shadow;
-
-  animation: zoomIn 1.6s ease-out;
-
-  @keyframes zoomIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
 }

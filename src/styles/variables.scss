@@ -4,17 +4,21 @@ $secondary-color: rgb(220, 220, 227);
 $hover-color: rgb(122, 152, 244);
 $error-color: rgba(220, 17, 1, 0.8);
 $warning-color: #ffb103;
-$success-color: rgba(36, 241, 6, 0.8);
+$success-color: #24f106cc;
 $info-color: #0396ff;
-$error-secondary: #666; // Color secundario
-$error-bg: #fefefe; // Fondo claro
-$error-border: #ddd; // Borde
+$error-secondary: #666;
+$error-bg: #fefefe;
+$error-border: #ddd;
+$card-bg: #f9f9f9;
+$link-color: rgb(65, 105, 225);
 $primary-gradient: linear-gradient(
   90deg,
   rgba(93, 118, 169, 1) 0%,
   rgba(65, 105, 225, 1) 26%,
   rgba(166, 166, 178, 1) 92%
 );
+$button-bg: rgb(37, 38, 41);
+$button-hover-bg: #727276;
 
 // Colores de texto y fondo
 $white: #ffffff;
